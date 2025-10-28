@@ -1,1 +1,2 @@
-export const USER_SERVICE = 'create_user'
+export const USER_SERVICE = 'USER_SERVICE'
+export const MOVIE_SERVICE = 'MOVIE_SERVICE'
