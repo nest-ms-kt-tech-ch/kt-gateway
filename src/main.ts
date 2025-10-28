@@ -6,7 +6,6 @@ import { RpcCustomExceptionFilter } from './common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-
   const logger = new Logger('Main-Gateway');
 
   const app = await NestFactory.create(AppModule);
@@ -15,9 +14,9 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
-    })
-  ) 
-  app.useGlobalFilters( new RpcCustomExceptionFilter());
+    }),
+  );
+  app.useGlobalFilters(new RpcCustomExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('King-tide Tech Challenge Gateway')

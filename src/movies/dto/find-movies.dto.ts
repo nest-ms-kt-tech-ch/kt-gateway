@@ -1,5 +1,12 @@
-import { Type } from "class-transformer";
-import { IsNumber, IsOptional, IsString, Max, Min, MinLength } from "class-validator";
+import { Type } from 'class-transformer';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+  MinLength,
+} from 'class-validator';
 
 export class FindMoviesDto {
   @IsString()
@@ -18,5 +25,5 @@ export class FindMoviesDto {
   @Min(1)
   @Max(100)
   @Type(() => Number)
-  public page:number = 1;
+  public page: number = 1;
 }

@@ -10,7 +10,7 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
     const rpcError = exception.getError();
     let status: number = 500;
     let message: any = 'Internal server error';
-    if(
+    if (
       typeof rpcError === 'object' &&
       'status' in rpcError &&
       'message' in rpcError
@@ -22,6 +22,6 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
     response.status(status || 500).json({
       status: status,
       message: message,
-    })
+    });
   }
 }

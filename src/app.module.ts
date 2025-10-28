@@ -8,20 +8,29 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [UsersModule, MoviesModule, AuthModule, JwtModule.register({
-    global: true, secret: envs.JWT_SECRET,
-  }), ThrottlerModule.forRoot({
-    throttlers: [
-      {
-        ttl: 60000,
-        limit: 10,
-      },
-    ],
-  }),],
+  imports: [
+    UsersModule,
+    MoviesModule,
+    AuthModule,
+    JwtModule.register({
+      global: true,
+      secret: envs.JWT_SECRET,
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
+    }),
+  ],
   controllers: [],
-  providers: [{
-    provide: APP_GUARD,
-    useClass: ThrottlerGuard
-  }],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

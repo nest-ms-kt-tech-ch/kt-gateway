@@ -16,6 +16,14 @@ import { envs, MOVIE_SERVICE, USER_SERVICE } from 'src/config';
           port: envs.MOVIE_MICROSERVICE_PORT,
         },
       },
+      {
+        name: USER_SERVICE,
+        transport: Transport.TCP,
+        options: {
+          host: envs.USER_MICROSERVICE_HOST,
+          port: envs.USER_MICROSERVICE_PORT,
+        },
+      },
     ]),
   ],
 })

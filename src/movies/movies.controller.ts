@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Post, Query, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { MOVIE_SERVICE, USER_SERVICE } from 'src/config';
@@ -17,11 +29,11 @@ export class MoviesController {
   async findMovies(@Query() findMoviesDto: FindMoviesDto) {
     try {
       const movies = await firstValueFrom(
-        this.movieClient.send({ cmd: 'search_movies' }, findMoviesDto
-      ))
+        this.movieClient.send({ cmd: 'search_movies' }, findMoviesDto),
+      );
       return movies;
     } catch (error) {
-      throw new RpcException(error)
+      throw new RpcException(error);
     }
   }
 
@@ -30,49 +42,49 @@ export class MoviesController {
   async findOne() {
     try {
       const movies = await firstValueFrom(
-        this.movieClient.send({ cmd: 'recommend_movies' }, {}
-      ))
+        this.movieClient.send({ cmd: 'recommend_movies' }, {}),
+      );
       return movies;
     } catch (error) {
-      throw new RpcException(error)
+      throw new RpcException(error);
     }
   }
 
   @Post(':id/favorite')
   @UseGuards(AuthGuard)
-  async markAsFavorite(
-    @Param('id') id: string,
-    @Req() req: any
-  ) {
+  async markAsFavorite(@Param('id') id: string, @Req() req: any) {
     try {
       const response = await firstValueFrom(
-        this.userClient.send({cmd: 'mark-movie-as-favorite'}, {
-          userId: req.user.userId,
-          movieId: id
-        })
-      )
-      return response
+        this.userClient.send(
+          { cmd: 'mark-movie-as-favorite' },
+          {
+            userId: req.user.userId,
+            movieId: id,
+          },
+        ),
+      );
+      return response;
     } catch (error) {
-      throw new RpcException(error)
+      throw new RpcException(error);
     }
   }
 
   @Delete(':id/favorite')
   @UseGuards(AuthGuard)
-  async unmarkAsFavorite(
-    @Param('id') id: string,
-    @Req() req: any
-  ) {
+  async unmarkAsFavorite(@Param('id') id: string, @Req() req: any) {
     try {
       const response = await firstValueFrom(
-        this.userClient.send({cmd: 'unmark-movie-as-favorite'}, {
-          userId: req.user.userId,
-          movieId: id
-        })
-      )
-      return response
+        this.userClient.send(
+          { cmd: 'unmark-movie-as-favorite' },
+          {
+            userId: req.user.userId,
+            movieId: id,
+          },
+        ),
+      );
+      return response;
     } catch (error) {
-      throw new RpcException(error)
+      throw new RpcException(error);
     }
   }
 
@@ -81,19 +93,22 @@ export class MoviesController {
   async addComment(
     @Param('id') id: string,
     @Body() body: { comment: string },
-    @Req() req: any
+    @Req() req: any,
   ) {
     try {
       const response = await firstValueFrom(
-        this.userClient.send({cmd: 'comment-movie'}, {
-          userId: req.user.userId,
-          movieId: id,
-          comment: body.comment
-        })
-      )
-      return response
+        this.userClient.send(
+          { cmd: 'comment-movie' },
+          {
+            userId: req.user.userId,
+            movieId: id,
+            comment: body.comment,
+          },
+        ),
+      );
+      return response;
     } catch (error) {
-      throw new RpcException(error)
+      throw new RpcException(error);
     }
   }
 }
