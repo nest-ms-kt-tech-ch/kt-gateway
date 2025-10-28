@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { envs, MOVIE_SERVICE } from 'src/config';
+import { envs, MOVIE_SERVICE, USER_SERVICE } from 'src/config';
 
 @Module({
   controllers: [MoviesController],
@@ -14,6 +14,14 @@ import { envs, MOVIE_SERVICE } from 'src/config';
         options: {
           host: envs.MOVIE_MICROSERVICE_HOST,
           port: envs.MOVIE_MICROSERVICE_PORT,
+        },
+      },
+      {
+        name: USER_SERVICE,
+        transport: Transport.TCP,
+        options: {
+          host: envs.USER_MICROSERVICE_HOST,
+          port: envs.USER_MICROSERVICE_PORT,
         },
       },
     ]),
