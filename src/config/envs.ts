@@ -7,6 +7,7 @@ interface EnvVars {
   USER_MICROSERVICE_PORT: number;
   MOVIE_MICROSERVICE_HOST: string;
   MOVIE_MICROSERVICE_PORT: number;
+  JWT_SECRET: string;
 }
 
 const envSchema = joi.object({
@@ -15,6 +16,7 @@ const envSchema = joi.object({
   USER_MICROSERVICE_PORT: joi.number().required().default(3001),
   MOVIE_MICROSERVICE_HOST: joi.string().required().default('localhost'),
   MOVIE_MICROSERVICE_PORT: joi.number().required().default(3002),
+  JWT_SECRET: joi.string().default('defaultsecret'),
 })
 .unknown(true);
 
@@ -30,4 +32,5 @@ export const envs: EnvVars = {
     USER_MICROSERVICE_PORT: value.USER_MICROSERVICE_PORT,
     MOVIE_MICROSERVICE_HOST: value.MOVIE_MICROSERVICE_HOST,
     MOVIE_MICROSERVICE_PORT: value.MOVIE_MICROSERVICE_PORT,
+    JWT_SECRET: value.JWT_SECRET,
 };

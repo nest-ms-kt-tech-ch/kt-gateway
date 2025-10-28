@@ -1,8 +1,9 @@
-import { Controller, Get, Inject, Query } from '@nestjs/common';
+import { Controller, Get, Inject, Query, UseGuards } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { MOVIE_SERVICE } from 'src/config';
 import { FindMoviesDto } from './dto/find-movies.dto';
+import { AuthGuard } from 'src/common/auth/auth.guard';
 
 @Controller('movies')
 export class MoviesController {
@@ -11,6 +12,7 @@ export class MoviesController {
   ) {}
 
   @Get()
+  @UseGuards(AuthGuard)
   async findMovies(@Query() findMoviesDto: FindMoviesDto) {
     try {
       const movies = await firstValueFrom(
@@ -23,6 +25,7 @@ export class MoviesController {
   }
 
   @Get('recomendations')
+  @UseGuards(AuthGuard)
   async findOne() {
     try {
       const movies = await firstValueFrom(
